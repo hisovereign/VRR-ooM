@@ -58,6 +58,7 @@ After reboot VRR should be functionally on
   -you can verify if VRR is working by checking your monitor's OSD (it should fluctuate)
   
 To turn VRR off run script (paste into terminal)
+
 ```vrr-safe-toggle```
 
 And then relog for changes to take effect
