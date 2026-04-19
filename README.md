@@ -36,7 +36,7 @@ sudo cp /etc/X11/xorg.conf.d/20-amdgpu.conf /etc/X11/xorg.conf.d/20-amdgpu.conf.
 ```
 and
 ```
-cp ~/.drirc ~/.drirc.backup 2>/dev/null || echo "No existing ~/.drirc to backup"```
+cp ~/.drirc ~/.drirc.backup 2>/dev/null || echo "No existing ~/.drirc to backup"
 ```
 
 ## Installation
