@@ -31,10 +31,13 @@ Then skip to bottom and read **possible ways your system can break** before cont
 Backup files that will be replaced by comands. (running install commands will completly replace those files)
 
   -Run these commands in terminal to backup the files
-
-  ```sudo cp /etc/X11/xorg.conf.d/20-amdgpu.conf /etc/X11/xorg.conf.d/20-amdgpu.conf.backup 2>/dev/null || echo "No existing AMD config to backup"```
-```cp ~/.drirc ~/.drirc.backup 2>/dev/null || echo "No existing ~/.drirc to backup"```
-
+```
+sudo cp /etc/X11/xorg.conf.d/20-amdgpu.conf /etc/X11/xorg.conf.d/20-amdgpu.conf.backup 2>/dev/null || echo "No existing AMD config to backup"
+```
+and
+```
+cp ~/.drirc ~/.drirc.backup 2>/dev/null || echo "No existing ~/.drirc to backup"```
+```
 
 ## Installation
 
