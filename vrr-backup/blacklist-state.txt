@@ -1,0 +1,10 @@
+        <application name="muffin" executable="muffin">
+            <option name="adaptive_sync" value="true" />
+        </application>
+        <application name="cinnamon" executable="cinnamon">
+            <option name="adaptive_sync" value="true" />
+        </application>
+--
+        <application name="cinnamon" executable="cinnamon">
+            <option name="glx_extension_override" value="-GLX_OML_sync_control -GLX_SGI_video_sync" />
+        </application>

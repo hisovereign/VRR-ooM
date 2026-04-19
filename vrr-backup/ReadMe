@@ -1,0 +1,133 @@
+Activate VRR for AMD GPU Linux Cinnamon (X11) systems
+
+
+
+
+Make backups!
+
+Make a timeshift-backup first!
+Did you make the timeshift snapshot??
+Then skip to the bottom and read possible ways your system can break before continuing.
+
+
+Backup files that will be replaced by commands. (running install commands will completely replace those files)
+ 
+    -Run these commands in terminal to backup the files
+
+sudo cp /etc/X11/xorg.conf.d/20-amdgpu.conf /etc/X11/xorg.conf.d/20-amdgpu.conf.backup 2>/dev/null || echo "No existing AMD config to backup"
+
+cp ~/.drirc ~/.drirc.backup 2>/dev/null || echo "No existing ~/.drirc to backup"
+
+
+
+
+
+Installation
+
+1. Place entire folder in home directory
+ 
+2. Copy files into place (copy/paste into terminal) 
+
+sudo cp ~/vrr-backup/20-amdgpu.conf /etc/X11/xorg.conf.d/
+cp ~/vrr-backup/drirc-minimal.conf ~/.drirc
+mkdir -p ~/.local/bin
+cp ~/vrr-backup/vrr-safe-toggle ~/.local/bin/
+chmod +x ~/.local/bin/vrr-safe-toggle
+
+3. Reboot.
+
+After reboot VRR should be functionally on. 
+
+To turn it off run 
+
+vrr-safe-toggle
+
+And relog. 
+
+
+
+
+
+
+
+ Restore original files
+
+
+-If no drirc existed before then you can remove the one added in readme
+
+rm ~/.drirc 2>/dev/null
+
+
+
+-To restore original AMD config from backup
+
+sudo mv /etc/X11/xorg.conf.d/20-amdgpu.conf.backup /etc/X11/xorg.conf.d/20-amdgpu.conf 2>/dev/null
+
+
+-To restore original drirc from backup
+
+mv ~/.drirc.backup ~/.drirc 2>/dev/null
+
+
+
+
+
+Recovery
+
+To get to TTY for recovery
+
+    -ctrl + alt + F4 (if not working try F1-F6)
+    -enter username and password
+
+
+
+Here you can timeshift or restore files from backup using restore original from backup commands
+
+
+Timeshift commands
+
+1. sudo timeshift --list
+    -will show a list of snapshots
+
+2. sudo timeshift --restore
+    -this will show the same list as above but you will need to then pick a number (not name)
+
+3. Type the number of the snapshot you want to restore and hit enter
+
+4. It will ask if you want to restore; type yes
+
+5. It will ask about Grub. Accept default option (yes) hit enter
+
+6. Select drive for Grub (this will be whaveter whole drive your OS-backup is on)
+
+7. Do not interrrupt restoration process.
+
+8. Once finished it will reboot
+
+
+
+
+
+
+
+Possible ways system can break
+
+1. You already have a custom /etc/X11/xorg.conf.d/20-amdgpu.conf
+    -sudo cp will overwrite your existing config
+    -If the orignal file contained essential options those are lost
+    -As a result Xorg may fail to start (black screen), 2nd monitor stops working, GPU perforamce degrades,or screen tearing appears.
+
+2. You already have a non-trivial ~/.drirc
+    -the command cp ~/vrr-backup/drirc-minimal.conf ~/.drirc overwrites the existing file 
+    -As a result any game-spefic workarounds or mesa options will be lost
+
+3. You are not using an amd gpu driver (eg, Intel, NVDIA, or an old AMD card with readeon driver)
+    -The AMD-specific config file (20-amdgpu.conf) is placed in xorg.conf.d.
+    -Xorg will try to apply option "VariableRefresh" to a non‑amdgpu device, which may be ignored or cause a parsing error, leading to Xorg failing to start.
+    -This will result in Black Screen on boot (recoverable by restoring backup file from TTY)
+
+4. You use a differen't display manager or session
+    -Toggle script restarts Cinnamon which may not work correctly or crash.
+
+
+- You can try recovery steps above if you get black screen

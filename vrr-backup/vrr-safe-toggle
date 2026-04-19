@@ -1,0 +1,23 @@
+#!/bin/bash
+AMD_CONFIG="/etc/X11/xorg.conf.d/20-amdgpu.conf"
+AMD_CONFIG_DISABLED="/etc/X11/xorg.conf.d/20-amdgpu.conf.disabled"
+USER_DRIRC="$HOME/.drirc"
+
+# Determine current state: ON if active config exists, OFF if disabled exists
+if [ -f "$AMD_CONFIG" ]; then
+    # Currently ON -> turn OFF
+    sudo mv "$AMD_CONFIG" "$AMD_CONFIG_DISABLED"
+    sed -i 's/value="true"/value="false"/g' "$USER_DRIRC"
+    notify-send -t 3000 "VRR" "Disabled - Reboot required"
+elif [ -f "$AMD_CONFIG_DISABLED" ]; then
+    # Currently OFF -> turn ON
+    sudo mv "$AMD_CONFIG_DISABLED" "$AMD_CONFIG"
+    sed -i 's/value="false"/value="true"/g' "$USER_DRIRC"
+    notify-send -t 3000 "VRR" "Enabled - Reboot required"
+else
+    # Neither exists (unlikely) – create disabled by default
+    echo "No config found, creating disabled state"
+    sudo touch "$AMD_CONFIG_DISABLED"
+    sed -i 's/value="true"/value="false"/g' "$USER_DRIRC"
+    notify-send -t 3000 "VRR" "Disabled - Reboot required"
+fi
