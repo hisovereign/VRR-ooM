@@ -68,12 +68,15 @@ And then relog for changes to take effect
 ## Restore original files
 
 -If no drirc file existed before then you can remove the one added in this readme
+
 ```rm ~/.drirc 2>/dev/null```
 
 To restore original AMD config from backup
+
 ```sudo mv /etc/X11/xorg.conf.d/20-amdgpu.conf.backup /etc/X11/xorg.conf.d/20-amdgpu.conf 2>/dev/null```
 
 To restore orignal drirc from backup
+
 ```mv ~/.drirc.backup ~/.drirc 2>/dev/null```
 
 
