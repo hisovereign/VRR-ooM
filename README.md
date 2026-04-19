@@ -4,7 +4,7 @@
 
 -This will remove Muffin from global mesa blacklist, turn VRR to true, and provide a toggle script that alows user to run script and reboot (afterwards a relog is enough) in order to turn VRR on/off
 
-[!WARNING] **Muffin/Cinnamon have been added to mesa blacklist because some monitors may start flickering or show odd behavior with VRR on. If you are experiencing this please revert steps or timeshift.**
+⚠️ FLASH WARNING ⚠️ **Muffin/Cinnamon have been added to mesa blacklist because some monitors may start flickering or show odd behavior with VRR on. If you are experiencing this please revert steps or timeshift.**
 
 -Please make a timeshift snapshot (backup) before starting this guide.
 
