@@ -15,7 +15,9 @@ Copy vrr-backup folder to your home directory  (/home/yourusername/)
   For manual instructions
   
    1. Create a folder in /home/yourusername/ and name it vrr-backup
+   
    2. Download all files and place them in folder you just made ~/home/yourusername/vrr-backup/
+
       -click on each file and to the right of where it says raw click download raw file
 
 ## Make Backups!
