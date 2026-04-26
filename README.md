@@ -6,7 +6,7 @@
 
 ⚠️ FLASH WARNING ⚠️ 
 
-**Muffin/Cinnamon have been added to mesa blacklist because some monitors may start flickering or show odd behavior with VRR on. If you are experiencing this please run toggle again to turn off vrr, revert steps, or timeshift. If screen becomes unreadable enter terminal only screen aka TTY (ctrl + alt + F4 or F1-F6 and input toggle from that screen. You can then restart cinnmaon or reboot.) **
+**Muffin/Cinnamon have been added to mesa blacklist because some monitors may start flickering or show odd behavior with VRR on. If you are experiencing this please run toggle again to turn off vrr, revert steps, or timeshift. If screen becomes unreadable enter terminal only screen aka TTY (ctrl + alt + F4 or F1-F6 and input toggle from that screen. You can then restart cinnamon or reboot.)**
 
 -Please make a timeshift snapshot (backup) before starting this guide.
 
