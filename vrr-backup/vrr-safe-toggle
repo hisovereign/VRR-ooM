@@ -1,23 +1,61 @@
 #!/bin/bash
+# vrr-safe-toggle – Toggle VRR (AMDGPU) on/off
+# Safe for use in TTY (no GUI required), prints instructions if screen is garbled.
+
 AMD_CONFIG="/etc/X11/xorg.conf.d/20-amdgpu.conf"
 AMD_CONFIG_DISABLED="/etc/X11/xorg.conf.d/20-amdgpu.conf.disabled"
 USER_DRIRC="$HOME/.drirc"
 
-# Determine current state: ON if active config exists, OFF if disabled exists
+# ------------------------------------------------------------------
+# Helper: notify-send if running in a graphical session, else echo
+# ------------------------------------------------------------------
+notify_or_echo() {
+    if [ -n "$DISPLAY" ] && command -v notify-send &>/dev/null; then
+        notify-send -t 3000 "$@"
+    else
+        echo "[$1] $2"
+    fi
+}
+
+# ------------------------------------------------------------------
+# Main logic
+# ------------------------------------------------------------------
 if [ -f "$AMD_CONFIG" ]; then
-    # Currently ON -> turn OFF
+    # Currently ON → turn OFF
     sudo mv "$AMD_CONFIG" "$AMD_CONFIG_DISABLED"
     sed -i 's/value="true"/value="false"/g' "$USER_DRIRC"
-    notify-send -t 3000 "VRR" "Disabled - Reboot required"
+    notify_or_echo "VRR" "Disabled - Reboot required"
+    STATE="disabled"
+
 elif [ -f "$AMD_CONFIG_DISABLED" ]; then
-    # Currently OFF -> turn ON
+    # Currently OFF → turn ON
     sudo mv "$AMD_CONFIG_DISABLED" "$AMD_CONFIG"
     sed -i 's/value="false"/value="true"/g' "$USER_DRIRC"
-    notify-send -t 3000 "VRR" "Enabled - Reboot required"
+    notify_or_echo "VRR" "Enabled - Reboot required"
+    STATE="enabled"
+
 else
-    # Neither exists (unlikely) – create disabled by default
+    # Neither file exists – create disabled state
     echo "No config found, creating disabled state"
     sudo touch "$AMD_CONFIG_DISABLED"
     sed -i 's/value="true"/value="false"/g' "$USER_DRIRC"
-    notify-send -t 3000 "VRR" "Disabled - Reboot required"
+    notify_or_echo "VRR" "Disabled - Reboot required"
+    STATE="disabled"
 fi
+
+# ------------------------------------------------------------------
+# TTY recovery instructions (always shown, just in case)
+# ------------------------------------------------------------------
+cat <<-EOF
+
+    ───────────────────────────────────────────────
+    VRR is now $STATE.
+    If your screen becomes unreadable (flickering / black):
+      1. Press Ctrl+Alt+F1 (or F2–F6) to switch to a TTY.
+      2. Log in with your username and password.
+      3. Run:  vrr-safe-toggle
+      4. Type your sudo password if asked.
+      5. Run:  sudo systemctl restart lightdm   (or reboot with: sudo reboot)
+      6. Press Ctrl+Alt+F7 to return to the GUI.
+    ───────────────────────────────────────────────
+EOF
