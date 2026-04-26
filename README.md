@@ -90,7 +90,7 @@ To restore orignal drirc from backup
   - ctrl + alt + F4 (if F4 is not working try F1-F6)
   - enter username and password
 
-Here you can timeshift or restore files from backup using "restore original files from backup commands"
+Here you can run toggle script to turn off vrr, timeshift, or restore files from backup using "restore original files from backup" commands above
 
 
 **Timeshift commands**
