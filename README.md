@@ -10,7 +10,6 @@ demo: https://youtu.be/quNHG3MPImQ
 
 **If screen becomes unreadable enter terminal only screen aka TTY (ctrl + alt + F4 or F1-F6) and then go back back to current session ctrl + alt + F7. If that does not work then got back to TTY and input toggle from that screen. You can then restart cinnamon or reboot.**
 
-**If VRR is left on during a reboot then on you may, on occasion, log into a blackscreen and/or only see your mouse. You can go into TTY and then back to reset it or turn off VRR with toggle**
 
 -Please make a timeshift snapshot (backup) before starting this guide.
 
